@@ -1,103 +1,84 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="h-screen bg-gray-900 text-white flex flex-col items-center p-4  ">
+        {/* Top Section - Bingo Board */}
+        <section className="flex w-full h-2/3">
+            {/* Column 1 - Timer & Small Bingo Preview */}
+            <div className="w-1/6 bg-gray-900 flex flex-col items-center justify-center p-4 space-y-4">
+                {/* Timer */}
+                <div className="text-2xl font-bold bg-gray-200 p-4 rounded">25:27</div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+                {/* Small Bingo Card Preview */}
+                <div className="w-16 h-16 bg-gray-500 rounded flex items-center justify-center">
+                    <span className="text-sm">BINGO</span>
+                </div>
+            </div>
+
+            {/* Column 2 - BINGO Letters & Numbers Grid */}
+            <div className="w-5/6 p-4 grid grid-cols-16 gap-2 text-center bg-gray-950">
+                {["B", "I", "N", "G", "O"].map((letter, rowIndex) => (
+                    <>
+                        {/* BINGO Letter Column */}
+                    <div
+                            key={letter}
+                            className="bg-white w-20 h-20 text-7xl font-extrabold text-red-600 flex items-center justify-center rounded"
+                        >
+                            {letter}
+                        </div>
+
+                        {/* Numbers Grid */}
+                        {[...Array(15)].map((_, colIndex) => {
+                            const number = rowIndex * 15 + colIndex + 1;
+                            return (
+                                <div
+                                    key={number}
+                                    className="w-20 h-20 text-7xl text-gray-400 font-extrabold flex items-center justify-center rounded"
+                                >
+                                    {number}
+                                </div>
+                            );
+                        })}
+                    </>
+                ))}
+            </div>
+        </section>
+        {/* Bottom Section - Controls & Amount */}
+        <div className="w-full h-1/3 bg-blue-900 flex">
+                {/* Left Section - Current Drawn Number */}
+                <div className="w-1/4 flex items-center justify-center">
+                    <div className="w-40 h-40 flex items-center justify-center items-center bg-gray-200 text-black text-6xl font-bold rounded-full">
+                        N <br /> 45
+                    </div>
+                </div>
+
+                {/* Middle Section - Controls */}
+                <div className="w-2/4 flex flex-col items-center justify-center space-y-4">
+                    {/* Round Selection */}
+                    <select className="bg-white text-black p-2 rounded w-40">
+                        <option>Select Round</option>
+                        <option>Round 1</option>
+                        <option>Round 2</option>
+                        <option>Round 3</option>
+                    </select>
+
+                    {/* Speed Slider */}
+                    <div className="flex items-center space-x-2">
+                        <span>Speed:</span>
+                        <input type="range" className="w-32" />
+                    </div>
+
+                    {/* Clear Button */}
+                    <button className="bg-blue-600 px-4 py-2 rounded">Check Board</button>
+                </div>
+
+                {/* Right Section - Total Amount */}
+                <div className="w-1/3 flex items-center justify-center">
+                    <div className="w-40 h-40 flex items-center justify-center bg-red-500 text-white text-8xl font-bold rounded-full">
+                        60
+                    </div>
+                </div>
+            </div>  
     </div>
+   
   );
 }
